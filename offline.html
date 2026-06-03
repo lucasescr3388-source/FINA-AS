@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finara — Sem conexão</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #0e1e3a;
+      color: #e8edf8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .card {
+      background: #111f3a;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 48px rgba(0,0,0,.4);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .brand-icon {
+      width: 42px; height: 42px;
+      background: #4f80ff;
+      border-radius: 10px;
+      display: grid; place-items: center;
+    }
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -.3px;
+    }
+
+    .offline-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .4; }
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -.3px;
+    }
+    p {
+      font-size: .9rem;
+      color: #7a90b8;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #4f80ff;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 28px;
+      font-size: .9rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: filter .2s, transform .2s;
+      text-decoration: none;
+    }
+    .btn:hover { filter: brightness(1.12); transform: translateY(-2px); }
+
+    .note {
+      margin-top: 24px;
+      font-size: .78rem;
+      color: rgba(255,255,255,.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="brand-name">Finara</span>
+    </div>
+
+    <div class="offline-icon">📡</div>
+    <h1>Sem conexão</h1>
+    <p>Você está offline no momento.<br>
+       Seus dados locais estão seguros.<br>
+       Reconecte-se para continuar usando o Finara.</p>
+
+    <a class="btn" href="./">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M1 4v6h6M23 20v-6h-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Tentar novamente
+    </a>
+
+    <p class="note">Finara funciona offline com dados salvos localmente.</p>
+  </div>
+
+  <script>
+    // Auto-reload quando voltar online
+    window.addEventListener('online', () => location.reload());
+  </script>
+</body>
+</html>

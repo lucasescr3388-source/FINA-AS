@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finara — Controle Financeiro</title>
+
+  <!-- ═══ PWA ═══ -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0e1e3a" id="metaThemeColor" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Finara" />
+  <meta name="application-name" content="Finara" />
+  <meta name="msapplication-TileColor" content="#0e1e3a" />
+  <meta name="msapplication-TileImage" content="icons/icon-144.png" />
+
+  <!-- SEO / OG -->
+  <meta name="description" content="Controle financeiro pessoal moderno — gerencie receitas, despesas e metas com estilo." />
+  <meta property="og:title" content="Finara — Controle Financeiro" />
+  <meta property="og:description" content="Sua vida financeira organizada em um dashboard elegante." />
+  <meta property="og:type" content="website" />
+
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png" />
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="96x96"   href="icons/icon-96.png" />
+  <link rel="icon" type="image/png" sizes="32x32"   href="icons/icon-96.png" />
+  <link rel="shortcut icon"         href="icons/icon-96.png" />
+
+  <!-- Fonts & libs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="brand-name">Finara</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-page="dashboard">
+      <span class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/></svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a href="#" class="nav-item" data-page="lancamentos">
+      <span class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="nav-label">Lançamentos</span>
+    </a>
+    <a href="#" class="nav-item" data-page="metas">
+      <span class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+      </span>
+      <span class="nav-label">Metas</span>
+    </a>
+    <a href="#" class="nav-item" data-page="relatorios">
+      <span class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="nav-label">Relatórios</span>
+    </a>
+    <a href="#" class="nav-item" data-page="configuracoes">
+      <span class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/></path>
+      </span>
+      <span class="nav-label">Configurações</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar">F</div>
+      <div class="user-info">
+        <span class="user-name">Minha Conta</span>
+        <span class="user-sub">Pessoal</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ===== MAIN ===== -->
+<main class="main-content">
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="topbar-title" id="pageTitle">Dashboard</div>
+    <div class="topbar-actions">
+      <span class="current-month" id="currentMonth"></span>
+    </div>
+  </header>
+
+  <!-- ===== DASHBOARD PAGE ===== -->
+  <section class="page active" id="page-dashboard">
+
+    <!-- Intelligence Banner -->
+    <div class="intel-banner" id="intelBanner">
+      <div class="intel-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 017 7c0 2.5-1.3 4.7-3.3 6l-.7 3H9l-.7-3A7 7 0 0112 2z" stroke="currentColor" stroke-width="2"/><path d="M9 18h6M10 21h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <span id="intelMessage">Carregando insights…</span>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-balance">
+        <div class="kpi-label">Saldo Atual</div>
+        <div class="kpi-value" id="kpiBalance">R$ 0,00</div>
+        <div class="kpi-trend" id="kpiBalanceTrend"></div>
+      </div>
+      <div class="kpi-card kpi-income">
+        <div class="kpi-label">Receitas do Mês</div>
+        <div class="kpi-value" id="kpiIncome">R$ 0,00</div>
+        <div class="kpi-sub">Este mês</div>
+      </div>
+      <div class="kpi-card kpi-expense">
+        <div class="kpi-label">Despesas do Mês</div>
+        <div class="kpi-value" id="kpiExpense">R$ 0,00</div>
+        <div class="kpi-sub">Este mês</div>
+      </div>
+      <div class="kpi-card kpi-savings">
+        <div class="kpi-label">Economia do Mês</div>
+        <div class="kpi-value" id="kpiSavings">R$ 0,00</div>
+        <div class="kpi-sub">= receitas − despesas</div>
+      </div>
+    </div>
+
+    <!-- Main Goal -->
+    <div class="main-goal-card" id="mainGoalCard">
+      <div class="goal-label">Meta Principal</div>
+      <div class="goal-name" id="mainGoalName">Nenhuma meta criada</div>
+      <div class="goal-progress-wrap">
+        <div class="goal-progress-bar"><div class="goal-progress-fill" id="mainGoalFill" style="width:0%"></div></div>
+        <span class="goal-pct" id="mainGoalPct">0%</span>
+      </div>
+      <div class="goal-amounts">
+        <span id="mainGoalCurrent">R$ 0,00</span>
+        <span id="mainGoalTarget">de R$ 0,00</span>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div class="chart-card-title">Gastos por Categoria</div>
+          <div class="chart-card-sub">Este mês</div>
+        </div>
+        <div class="chart-wrap pie-wrap">
+          <canvas id="pieChart"></canvas>
+          <div class="pie-empty" id="pieEmpty">Sem dados ainda</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div class="chart-card-title">Evolução Mensal</div>
+          <div class="chart-card-sub">Últimos 6 meses</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LANÇAMENTOS PAGE ===== -->
+  <section class="page" id="page-lancamentos">
+    <div class="page-header-row">
+      <div>
+        <h2 class="page-heading">Lançamentos</h2>
+        <p class="page-sub">Gerencie suas receitas e despesas</p>
+      </div>
+      <button class="btn-primary" id="btnNovoLancamento">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        Novo Lançamento
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-row">
+      <button class="filter-chip active" data-filter="all">Todos</button>
+      <button class="filter-chip" data-filter="receita">Receitas</button>
+      <button class="filter-chip" data-filter="despesa">Despesas</button>
+    </div>
+
+    <div class="transactions-list" id="transactionsList">
+      <div class="empty-state">
+        <div class="empty-icon">💳</div>
+        <div class="empty-title">Nenhum lançamento ainda</div>
+        <div class="empty-sub">Clique em "Novo Lançamento" para começar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== METAS PAGE ===== -->
+  <section class="page" id="page-metas">
+    <div class="page-header-row">
+      <div>
+        <h2 class="page-heading">Metas Financeiras</h2>
+        <p class="page-sub">Acompanhe seu progresso</p>
+      </div>
+      <button class="btn-primary" id="btnNovaMeta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        Nova Meta
+      </button>
+    </div>
+
+    <div class="goals-grid" id="goalsList">
+      <div class="empty-state">
+        <div class="empty-icon">🎯</div>
+        <div class="empty-title">Nenhuma meta criada</div>
+        <div class="empty-sub">Defina um objetivo financeiro para começar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RELATÓRIOS PAGE ===== -->
+  <section class="page" id="page-relatorios">
+    <div class="page-header-row">
+      <div>
+        <h2 class="page-heading">Relatórios</h2>
+        <p class="page-sub">Visão geral das suas finanças</p>
+      </div>
+    </div>
+
+    <div class="report-kpis">
+      <div class="report-kpi">
+        <div class="rk-icon rk-income">↑</div>
+        <div class="rk-data">
+          <div class="rk-label">Total Recebido</div>
+          <div class="rk-value" id="rptIncome">R$ 0,00</div>
+        </div>
+      </div>
+      <div class="report-kpi">
+        <div class="rk-icon rk-expense">↓</div>
+        <div class="rk-data">
+          <div class="rk-label">Total Gasto</div>
+          <div class="rk-value" id="rptExpense">R$ 0,00</div>
+        </div>
+      </div>
+      <div class="report-kpi">
+        <div class="rk-icon rk-savings">◆</div>
+        <div class="rk-data">
+          <div class="rk-label">Economia Acumulada</div>
+          <div class="rk-value" id="rptSavings">R$ 0,00</div>
+        </div>
+      </div>
+      <div class="report-kpi">
+        <div class="rk-icon rk-cat">★</div>
+        <div class="rk-data">
+          <div class="rk-label">Maior Gasto</div>
+          <div class="rk-value" id="rptTopCat">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div class="chart-card-title">Distribuição de Despesas</div>
+        </div>
+        <div class="chart-wrap pie-wrap">
+          <canvas id="reportPieChart"></canvas>
+          <div class="pie-empty" id="reportPieEmpty">Sem dados ainda</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div class="chart-card-title">Receitas × Despesas</div>
+          <div class="chart-card-sub">Histórico completo</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="reportBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONFIGURAÇÕES PAGE ===== -->
+  <section class="page" id="page-configuracoes">
+    <div class="page-header-row">
+      <div>
+        <h2 class="page-heading">Configurações</h2>
+        <p class="page-sub">Personalize o Finara</p>
+      </div>
+    </div>
+
+    <div class="settings-grid">
+      <div class="settings-section">
+        <div class="settings-section-title">Aparência</div>
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Tema Claro</div>
+              <div class="setting-desc">Interface clara e limpa</div>
+            </div>
+            <button class="theme-btn active" id="btnThemeLight" onclick="setTheme('light')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Claro
+            </button>
+            <button class="theme-btn" id="btnThemeDark" onclick="setTheme('dark')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2"/></svg>
+              Escuro
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Dados</div>
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Exportar Backup</div>
+              <div class="setting-desc">Baixe todos os seus dados em JSON</div>
+            </div>
+            <button class="btn-secondary" onclick="exportBackup()">Exportar</button>
+          </div>
+          <div class="setting-divider"></div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Importar Backup</div>
+              <div class="setting-desc">Restaure dados de um arquivo JSON</div>
+            </div>
+            <label class="btn-secondary" style="cursor:pointer">
+              Importar
+              <input type="file" accept=".json" id="importFile" style="display:none" onchange="importBackup(event)" />
+            </label>
+          </div>
+          <div class="setting-divider"></div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Limpar Todos os Dados</div>
+              <div class="setting-desc">Remove todas as transações e metas</div>
+            </div>
+            <button class="btn-danger" onclick="clearData()">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Sobre</div>
+        <div class="settings-card">
+          <div class="about-row">
+            <div class="brand-icon large">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="about-name">Finara</div>
+              <div class="about-ver">Versão 1.0 — Controle Financeiro Pessoal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== MODAL LANÇAMENTO ===== -->
+<div class="modal-overlay" id="modalLancamento">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalLancTitle">Novo Lançamento</h3>
+      <button class="modal-close" onclick="closeModal('modalLancamento')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="lancId" />
+
+      <div class="form-group">
+        <label class="form-label">Tipo</label>
+        <div class="type-toggle">
+          <button class="type-btn active" data-type="receita" id="typeReceita">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H7M17 7v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Receita
+          </button>
+          <button class="type-btn" data-type="despesa" id="typeDespesa">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 17H7M17 17V7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Despesa
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="lancValor">Valor</label>
+        <div class="input-currency-wrap">
+          <span class="currency-prefix">R$</span>
+          <input type="number" id="lancValor" class="form-input currency" placeholder="0,00" step="0.01" min="0" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="lancCategoria">Categoria</label>
+          <select id="lancCategoria" class="form-input"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lancData">Data</label>
+          <input type="date" id="lancData" class="form-input" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="lancDesc">Descrição</label>
+        <input type="text" id="lancDesc" class="form-input" placeholder="Ex: Almoço, Uber, Salário…" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modalLancamento')">Cancelar</button>
+      <button class="btn-primary" onclick="saveLancamento()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL META ===== -->
+<div class="modal-overlay" id="modalMeta">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalMetaTitle">Nova Meta</h3>
+      <button class="modal-close" onclick="closeModal('modalMeta')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="metaId" />
+      <div class="form-group">
+        <label class="form-label" for="metaNome">Nome da Meta</label>
+        <input type="text" id="metaNome" class="form-input" placeholder="Ex: Viagem, Reserva de Emergência…" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="metaValorDesejado">Valor Desejado</label>
+          <div class="input-currency-wrap">
+            <span class="currency-prefix">R$</span>
+            <input type="number" id="metaValorDesejado" class="form-input currency" placeholder="0,00" min="0" step="0.01" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="metaValorAtual">Valor Atual</label>
+          <div class="input-currency-wrap">
+            <span class="currency-prefix">R$</span>
+            <input type="number" id="metaValorAtual" class="form-input currency" placeholder="0,00" min="0" step="0.01" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="metaPrazo">Prazo</label>
+        <input type="date" id="metaPrazo" class="form-input" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modalMeta')">Cancelar</button>
+      <button class="btn-primary" onclick="saveMeta()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+<!-- ═══ PWA: Service Worker + Install Banner ═══ -->
+<script>
+/* ── Service Worker ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => {
+        console.log('[SW] Registered:', reg.scope);
+        reg.addEventListener('updatefound', () => {
+          const nw = reg.installing;
+          nw.addEventListener('statechange', () => {
+            if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner();
+          });
+        });
+      })
+      .catch(err => console.warn('[SW] Error:', err));
+  });
+  navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
+}
+
+function showUpdateBanner() {
+  const b = document.createElement('div');
+  b.innerHTML = '<span>🔄 Nova versão disponível!</span><button onclick="applyUpdate()" style="background:#4f80ff;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-left:10px">Atualizar</button>';
+  Object.assign(b.style,{position:'fixed',bottom:'80px',left:'50%',transform:'translateX(-50%)',background:'#1a2b4a',color:'#fff',padding:'12px 20px',borderRadius:'99px',display:'flex',alignItems:'center',fontSize:'.85rem',fontWeight:'600',zIndex:'9999',boxShadow:'0 4px 24px rgba(0,0,0,.4)',border:'1px solid rgba(255,255,255,.12)',whiteSpace:'nowrap',fontFamily:"'DM Sans',sans-serif"});
+  document.body.appendChild(b);
+}
+function applyUpdate() {
+  navigator.serviceWorker.getRegistration().then(r => { if(r?.waiting) r.waiting.postMessage({type:'SKIP_WAITING'}); });
+}
+
+/* ── Install Prompt (A2HS) ── */
+let _deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); _deferredPrompt=e; showInstallBanner(); });
+window.addEventListener('appinstalled', () => { _deferredPrompt=null; document.getElementById('installBanner')?.remove(); typeof showToast==='function'&&showToast('Finara instalado! 🎉'); });
+
+function showInstallBanner() {
+  if (document.getElementById('installBanner') || sessionStorage.getItem('fn_install_dismissed')) return;
+  const b = document.createElement('div');
+  b.id='installBanner';
+  b.innerHTML=`<div style="display:flex;align-items:center;gap:10px;"><img src="icons/icon-72.png" width="36" height="36" style="border-radius:8px;" onerror="this.style.display='none'"/><div><div style="font-weight:700;font-size:.88rem;">Instalar Finara</div><div style="font-size:.76rem;opacity:.7;margin-top:1px;">Acesse offline, como app nativo</div></div></div><div style="display:flex;gap:8px;margin-top:12px;"><button id="btnIY" style="flex:1;background:#4f80ff;color:#fff;border:none;border-radius:10px;padding:9px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Instalar</button><button id="btnIN" style="flex:1;background:rgba(255,255,255,.08);color:#fff;border:none;border-radius:10px;padding:9px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;">Agora não</button></div>`;
+  Object.assign(b.style,{position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',background:'#111f3a',color:'#fff',padding:'16px 20px',borderRadius:'18px',width:'min(340px,calc(100vw - 32px))',zIndex:'9998',boxShadow:'0 8px 40px rgba(0,0,0,.5)',border:'1px solid rgba(255,255,255,.10)',fontFamily:"'DM Sans',sans-serif"});
+  if (!document.getElementById('_bKF')) { const s=document.createElement('style'); s.id='_bKF'; s.textContent='@keyframes _bUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}'; document.head.appendChild(s); }
+  b.style.animation='_bUp .35s cubic-bezier(.4,0,.2,1)';
+  document.body.appendChild(b);
+  document.getElementById('btnIY').onclick = async () => { if(!_deferredPrompt)return; _deferredPrompt.prompt(); const {outcome}=await _deferredPrompt.userChoice; _deferredPrompt=null; b.remove(); outcome==='accepted'&&typeof showToast==='function'&&showToast('Instalando Finara…'); };
+  document.getElementById('btnIN').onclick = () => { b.remove(); sessionStorage.setItem('fn_install_dismissed','1'); };
+}
+
+/* ── Online / Offline dot ── */
+function syncOnline() {
+  let d=document.getElementById('_onDot');
+  if(!d){d=document.createElement('span');d.id='_onDot';Object.assign(d.style,{position:'fixed',top:'14px',right:'16px',width:'8px',height:'8px',borderRadius:'50%',zIndex:'9999',transition:'background .4s',boxShadow:'0 0 0 2px rgba(255,255,255,.15)'});document.body.appendChild(d);}
+  d.style.background=navigator.onLine?'#10b981':'#f43f5e';
+  d.title=navigator.onLine?'Online':'Offline — dados salvos localmente';
+}
+window.addEventListener('online',syncOnline);
+window.addEventListener('offline',syncOnline);
+syncOnline();
+
+/* ── theme-color meta sync ── */
+new MutationObserver(()=>{const dark=document.documentElement.dataset.theme==='dark';document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0a1628':'#0e1e3a');}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
